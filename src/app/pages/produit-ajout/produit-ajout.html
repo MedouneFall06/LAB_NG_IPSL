@@ -1,38 +1,120 @@
+<div class="container">
+  <!-- En-tête avec navigation -->
+  <div class="page-header">
+    <h1 class="page-titre">Ajouter un nouveau produit</h1>
+    <!-- Même composant réutilisable -->
+    <app-btn-retour
+      route="/produits"
+      texte=" Retour à la liste">
+    </app-btn-retour>
+  </div>
 
-
-<div>
-  <div class="page-titre">Ajout Nouveau produit</div>
-  <form [formGroup]="produitFrom">
-    <div class="form-element">
-      <span class="form-label">nom </span>
-      <input type="text" formControlName="nom">
+  <!-- Carte du formulaire -->
+  <div class="form-card">
+    <div class="card-header">
+      <h2>Informations du produit</h2>
+      <p class="subtitle">Remplissez les champs ci-dessous pour ajouter un nouveau produit</p>
     </div>
 
-      <div class="form-element">
-        <span class="form-label">prix </span>
-        <input type="text" formControlName="prix">
+    <!-- Message d'erreur global -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      <span class="alert-icon">⚠️</span>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Formulaire -->
+    <form [formGroup]="produitForm" (ngSubmit)="ajoutProduit()" class="product-form">
+
+      <!-- Champ Nom -->
+      <div class="form-group" [class.has-error]="produitForm.get('nom')?.invalid && produitForm.get('nom')?.touched">
+        <label class="form-label required-field">
+          Nom du produit
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            formControlName="nom"
+            class="form-control"
+            [class.is-invalid]="produitForm.get('nom')?.invalid && produitForm.get('nom')?.touched"
+            placeholder="Ex: Ordinateur Portable">
+        </div>
+        <div *ngIf="produitForm.get('nom')?.invalid && produitForm.get('nom')?.touched" class="error-message">
+          <span *ngIf="produitForm.get('nom')?.errors?.['required']">Le nom du produit est requis</span>
+          <span *ngIf="produitForm.get('nom')?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères</span>
+        </div>
       </div>
 
-
-
-
-        <div class="form-element">
-          <span class="form-label">quantite </span>
-          <input type="text" formControlName="quantite">
+      <!-- Champ Prix -->
+      <div class="form-group" [class.has-error]="produitForm.get('prix')?.invalid && produitForm.get('prix')?.touched">
+        <label class="form-label required-field">
+          Prix (€)
+        </label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">€</span>
+          <input
+            type="number"
+            step="0.01"
+            formControlName="prix"
+            class="form-control with-symbol"
+            [class.is-invalid]="produitForm.get('prix')?.invalid && produitForm.get('prix')?.touched"
+            placeholder="0.00">
         </div>
+        <div *ngIf="produitForm.get('prix')?.invalid && produitForm.get('prix')?.touched" class="error-message">
+          <span *ngIf="produitForm.get('prix')?.errors?.['required']">Le prix est requis</span>
+          <span *ngIf="produitForm.get('prix')?.errors?.['min']">Le prix doit être supérieur à 0</span>
+        </div>
+      </div>
 
+      <!-- Champ Quantité -->
+      <div class="form-group" [class.has-error]="produitForm.get('quantite')?.invalid && produitForm.get('quantite')?.touched">
+        <label class="form-label required-field">
+          Quantité en stock
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="number"
+            formControlName="quantite"
+            class="form-control"
+            [class.is-invalid]="produitForm.get('quantite')?.invalid && produitForm.get('quantite')?.touched"
+            placeholder="0">
+        </div>
+        <div *ngIf="produitForm.get('quantite')?.invalid && produitForm.get('quantite')?.touched" class="error-message">
+          <span *ngIf="produitForm.get('quantite')?.errors?.['required']">La quantité est requise</span>
+          <span *ngIf="produitForm.get('quantite')?.errors?.['min']">La quantité doit être supérieure ou égale à 0</span>
+        </div>
+      </div>
 
-    <div class="form-element">
-      <span class="form-label">description </span>
-      <input type="text" formControlName="description">
-    </div>
+      <!-- Champ Description -->
+      <div class="form-group">
+        <label class="form-label">
+          Description
+          <span class="optional-badge">Optionnel</span>
+        </label>
+        <div class="input-wrapper">
+          <textarea
+            formControlName="description"
+            class="form-control textarea"
+            rows="4"
+            placeholder="Description détaillée du produit..."></textarea>
+        </div>
+      </div>
 
-
-    <button class="bouton-valider" (click)="ajoutProduit()">Valider</button>
-
-
-
-
-
-  </form>
+      <!-- Actions du formulaire -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          routerLink="/produits">
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="produitForm.invalid || loading">
+          <span *ngIf="loading" class="spinner"></span>
+          {{ loading ? 'Ajout en cours...' : 'Ajouter le produit' }}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

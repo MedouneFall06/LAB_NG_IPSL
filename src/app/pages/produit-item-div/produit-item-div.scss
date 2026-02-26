@@ -1,5 +1,5 @@
 :host {
-  display: block; // Important pour que le composant se comporte comme un bloc
+  display: block;
 }
 
 .produit-item {
@@ -11,23 +11,158 @@
 
   &:hover {
     background-color: #f9fafb;
-    transform: translateX(4px); // Petit effet de glissement au survol
+    transform: translateX(4px);
   }
 }
 
 .produit-item-column {
   flex: 1;
-  &.id { max-width: 60px; color: #6b7280; font-size: 0.8rem; }
-  &.name { font-weight: 500; flex: 2;}
-  &.price { font-weight: 600; color: #4f46e5; }
+
+  &.id {
+    max-width: 60px;
+    color: #6b7280;
+    font-size: 0.8rem;
+  }
+
+  &.name {
+    font-weight: 500;
+    flex: 2;
+  }
+
+  &.price {
+    font-weight: 600;
+    color: #4f46e5;
+  }
+
+  &.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+  }
 }
 
+// Style pour le lien du nom du produit (UNE SEULE DÉFINITION)
+.product-name-link {
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+
+  // Effet de soulignement animé
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4f46e5;
+    transition: width 0.2s ease;
+  }
+
+  // Tooltip avec attribut data
+  &[data-tooltip] {
+    position: relative;
+
+    &::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1f2937;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      margin-bottom: 0.5rem;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; // Empêche le tooltip d'interférer avec le hover
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #1f2937 transparent transparent transparent;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; // Empêche le tooltip d'interférer avec le hover
+    }
+
+    &:hover::before,
+    &:hover::after {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &:hover {
+    color: #4f46e5;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Style des boutons
 .btn-edit {
-  background: none;
-  border: 1px solid #e5e7eb;
-  padding: 0.4rem 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
-  &:hover { background: #4f46e5; color: white; }
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #c82333;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
 }

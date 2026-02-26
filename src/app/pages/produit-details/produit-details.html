@@ -1,1 +1,65 @@
-<p>produit-details works!</p>
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-titre">Détails du produit</h1>
+    <!-- Utilisation du composant réutilisable -->
+    <app-btn-retour
+      route="/produits"
+      texte=" Retour à la liste"
+      couleur="primary">
+    </app-btn-retour>
+  </div>
+
+  <!-- État de chargement -->
+  <div *ngIf="loading" class="enChargement">
+    <span class="loader"></span>
+    Chargement des détails...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Affichage des détails du produit -->
+  <div *ngIf="!loading && !errorMessage && produit" class="details-card">
+    <div class="details-grid">
+      <div class="details-row">
+        <span class="details-label">ID :</span>
+        <span class="details-value">{{ produit.id }}</span>
+      </div>
+
+      <div class="details-row">
+        <span class="details-label">Nom :</span>
+        <span class="details-value">{{ produit.nom }}</span>
+      </div>
+
+      <div class="details-row">
+        <span class="details-label">Prix :</span>
+        <span class="details-value">{{ produit.prix | currency:'EUR' }}</span>
+      </div>
+
+      <div class="details-row">
+        <span class="details-label">Quantité en stock :</span>
+        <span class="details-value">
+          <span class="badge">{{ produit.quantite }} unités</span>
+        </span>
+      </div>
+
+      <div class="details-row">
+        <span class="details-label">Description :</span>
+        <span class="details-value">{{ produit.description || 'Aucune description' }}</span>
+      </div>
+    </div>
+
+    <div class="details-actions">
+      <a class="btn-edit" [routerLink]="['/produits/modifier', produit.id]">
+        Modifier ce produit
+      </a>
+    </div>
+  </div>
+
+  <!-- Message si produit non trouvé -->
+  <div *ngIf="!loading && !errorMessage && !produit" class="not-found">
+    Produit non trouvé
+  </div>
+</div>

@@ -1,0 +1,44 @@
+// btn-retour.scss
+.btn-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background-color: white;
+
+  &-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  &-primary {
+    color: #4f46e5;
+
+    &:hover {
+      background-color: #f9fafb;
+      border-color: #4f46e5;
+      transform: translateX(-3px);
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1);
+    }
+  }
+
+  &-secondary {
+    color: #6b7280;
+
+    &:hover {
+      background-color: #f9fafb;
+      border-color: #6b7280;
+      transform: translateX(-3px);
+    }
+  }
+
+  &:active {
+    transform: translateX(0);
+  }
+}

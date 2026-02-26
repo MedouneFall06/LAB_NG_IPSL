@@ -1,17 +1,24 @@
 <div class="container">
-  <h1 class="title">Liste des produits</h1>
+  <!-- En-tête avec titre et bouton d'ajout -->
+  <div class="header-with-action">
+    <h1 class="title">Liste des produits</h1>
+    <a class="btn-add" routerLink="/produits/ajout">
+      <span class="btn-icon">+</span>
+      Ajouter un produit
+    </a>
+  </div>
 
   <div class="liste-wrapper">
-    
-
+    <!-- En-tête du tableau -->
     <div class="table-header">
       <div class="column-header id">ID</div>
       <div class="column-header name">Nom du Produit</div>
-      <div class="column-header ">Prix</div>
-      <div class="column-header ">Quantité</div>
-      <div class="column-header ">Actions</div>
+      <div class="column-header">Prix</div>
+      <div class="column-header">Quantité</div>
+      <div class="column-header actions">Actions</div>
     </div>
 
+    <!-- État de chargement -->
     @if (loading) {
       <div class="enChargement">
         <span class="loader"></span>
@@ -19,12 +26,33 @@
       </div>
     }
 
+    <!-- Message d'erreur -->
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <!-- Message si aucun produit -->
+    @if (!loading && !errorMessage && produits.length === 0) {
+      <div class="empty-state">
+        <p>Aucun produit trouvé</p>
+        <a class="btn-add-empty" routerLink="/produits/ajout">
+          Ajouter votre premier produit
+        </a>
+      </div>
+    }
+
+    <!-- Liste des produits -->
     <ul class="liste">
-      @for (produit of produits; track produit.id; let i = $index) {
-        <app-produit-item-div [produit]="produit"></app-produit-item-div>
+      @for (produit of produits; track produit.id) {
+        <app-produit-item-div
+          [produit]="produit"
+          (delete)="deleteProduit($event)">
+        </app-produit-item-div>
       }
     </ul>
   </div>
 
-  <footer class="footer">Le footer de la page &copy; 2026</footer>
+  <footer class="footer">Le footer de la page © 2026</footer>
 </div>
