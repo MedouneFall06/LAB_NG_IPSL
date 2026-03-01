@@ -1,47 +1,73 @@
 :host {
   display: block;
+  width: 100%;
 }
 
 .produit-item {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 120px 180px;
+  width: 100%;
+  padding: 12px 10px;
   border-bottom: 1px solid #f3f4f6;
   transition: all 0.2s ease;
+  align-items: center;
 
   &:hover {
     background-color: #f9fafb;
     transform: translateX(4px);
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .produit-item-column {
-  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &.id {
-    max-width: 60px;
+    text-align: center;
     color: #6b7280;
     font-size: 0.8rem;
   }
 
   &.name {
     font-weight: 500;
-    flex: 2;
+    padding-left: 10px;
   }
 
   &.price {
+    text-align: right;
+    padding-right: 20px;
     font-weight: 600;
     color: #4f46e5;
   }
 
+  &.stock {
+    text-align: center;
+
+    .badge {
+      background: #ecfdf5;
+      color: #065f46;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+  }
+
   &.actions {
     display: flex;
-    gap: 12px;
-    justify-content: flex-start;
+    gap: 8px;
+    justify-content: flex-end;
+    padding-right: 10px;
   }
 }
 
-// Style pour le lien du nom du produit (UNE SEULE DÉFINITION)
+// Style pour le lien du nom du produit
 .product-name-link {
   color: #1f2937;
   text-decoration: none;
@@ -49,8 +75,8 @@
   transition: all 0.2s ease;
   position: relative;
   cursor: pointer;
+  display: inline-block;
 
-  // Effet de soulignement animé
   &::after {
     content: '';
     position: absolute;
@@ -62,7 +88,6 @@
     transition: width 0.2s ease;
   }
 
-  // Tooltip avec attribut data
   &[data-tooltip] {
     position: relative;
 
@@ -83,7 +108,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s ease, visibility 0.2s ease;
-      pointer-events: none; // Empêche le tooltip d'interférer avec le hover
+      pointer-events: none;
     }
 
     &::after {
@@ -99,7 +124,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s ease, visibility 0.2s ease;
-      pointer-events: none; // Empêche le tooltip d'interférer avec le hover
+      pointer-events: none;
     }
 
     &:hover::before,
@@ -127,12 +152,12 @@
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  min-width: 80px;
+  min-width: 70px;
   text-align: center;
   transition: all 0.2s ease;
 
@@ -149,12 +174,12 @@
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  min-width: 80px;
+  min-width: 70px;
   text-align: center;
   transition: all 0.2s ease;
 

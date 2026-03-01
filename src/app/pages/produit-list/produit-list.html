@@ -1,58 +1,37 @@
+<!-- Bloc user avec le nom dynamique -->
+<div class="user-header">
+  <div class="user-info">
+    Connecté en tant que : <strong>{{ username || 'Utilisateur' }}</strong>
+  </div>
+</div>
+
+<!-- La navbar avec son propre bouton -->
+<app-navbar
+  [username]="username"
+  [searchTerm]="searchTerm"
+  (search)="onSearch($event)"
+  (logout)="logout()">
+</app-navbar>
+
 <div class="container">
-  <!-- En-tête avec titre et bouton d'ajout -->
-  <div class="header-with-action">
-    <h1 class="title">Liste des produits</h1>
-    <a class="btn-add" routerLink="/produits/ajout">
-      <span class="btn-icon">+</span>
-      Ajouter un produit
-    </a>
+  <!-- En-tête du tableau -->
+  <div class="table-header">
+    <div class="column-header id">ID</div>
+    <div class="column-header name">Nom du Produit</div>
+    <div class="column-header price">Prix</div>
+    <div class="column-header stock">Quantité</div>
+    <div class="column-header actions">Actions</div>
   </div>
 
-  <div class="liste-wrapper">
-    <!-- En-tête du tableau -->
-    <div class="table-header">
-      <div class="column-header id">ID</div>
-      <div class="column-header name">Nom du Produit</div>
-      <div class="column-header">Prix</div>
-      <div class="column-header">Quantité</div>
-      <div class="column-header actions">Actions</div>
-    </div>
-
-    <!-- État de chargement -->
-    @if (loading) {
-      <div class="enChargement">
-        <span class="loader"></span>
-        Chargement des produits...
-      </div>
+  <!-- Liste des produits -->
+  <ul class="liste">
+    @for (produit of produits; track produit.id) {
+      <app-produit-item-div
+        [produit]="produit"
+        (delete)="deleteProduit($event)">
+      </app-produit-item-div>
     }
+  </ul>
 
-    <!-- Message d'erreur -->
-    @if (errorMessage) {
-      <div class="error-message">
-        {{ errorMessage }}
-      </div>
-    }
-
-    <!-- Message si aucun produit -->
-    @if (!loading && !errorMessage && produits.length === 0) {
-      <div class="empty-state">
-        <p>Aucun produit trouvé</p>
-        <a class="btn-add-empty" routerLink="/produits/ajout">
-          Ajouter votre premier produit
-        </a>
-      </div>
-    }
-
-    <!-- Liste des produits -->
-    <ul class="liste">
-      @for (produit of produits; track produit.id) {
-        <app-produit-item-div
-          [produit]="produit"
-          (delete)="deleteProduit($event)">
-        </app-produit-item-div>
-      }
-    </ul>
-  </div>
-
-  <footer class="footer">Le footer de la page © 2026</footer>
+  <footer class="footer">By Baye Medoune © 2026</footer>
 </div>

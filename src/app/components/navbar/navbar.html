@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <!-- Logo / Brand -->
+    <a class="navbar-brand fw-bold" routerLink="/produits">
+      <span class="brand-icon">📦</span> Gestion Produits
+    </a>
+
+    <!-- Toggle button pour mobile -->
+    <button class="navbar-toggler" type="button"
+            (click)="isCollapsed = !isCollapsed"
+            aria-controls="navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenu de la navbar -->
+    <div class="collapse navbar-collapse" [class.show]="!isCollapsed" id="navbarContent">
+
+      <!-- Menu de navigation -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/produits"
+             routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-list-ul"></i> Liste
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/produits/ajout" routerLinkActive="active">
+            <i class="bi bi-plus-circle"></i> Ajouter
+          </a>
+        </li>
+      </ul>
+
+      <!-- Barre de recherche -->
+      <form class="d-flex me-3" (ngSubmit)="onSearch()" #searchForm="ngForm">
+        <div class="input-group">
+          <input class="form-control"
+                 type="search"
+                 placeholder="Rechercher un produit..."
+                 [(ngModel)]="searchTerm"
+                 name="searchTerm"
+                 aria-label="Search">
+          <button class="btn btn-light" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+
+      <!-- Infos utilisateur -->
+      <div class="navbar-nav">
+        <span class="nav-link text-light" *ngIf="username">
+          <i class="bi bi-person-circle"></i> {{ username }}
+        </span>
+        <button class="btn btn-outline-light btn-sm ms-2" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

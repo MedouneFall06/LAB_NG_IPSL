@@ -1,3 +1,22 @@
+// styles.scss
+$primary: #4f46e5; // Violet
+$danger: #dc3545;   // Rouge
+$success: #28a745;  // Vert
+$warning: #ffc107;  // Jaune
+
+// Importer Bootstrap après avoir défini les variables
+@import 'bootstrap/scss/bootstrap';
+
+// Personnalisations supplémentaires
+.navbar {
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2);
+}
+
+.btn-outline-light:hover {
+  background-color: $warning;
+  border-color: $warning;
+  color: #000;
+}
 .alert {
   padding: 1rem;
   border-radius: 4px;
